@@ -248,7 +248,7 @@ uci_encryption_key_base64: ""
 uci_bot_postgres_database: uci-botdb
 uci_fusionauth_postgres_database: uci-fusionauth
 uci_postgres_user: "{{postgres.db_username}}"
-uci_postgres_password: "{{Beehyv123}}"
+uci_postgres_password: "Beehyv123"
 
 uci_postgres:
   conversation_db_name: "{{ uci_bot_postgres_database }}"
