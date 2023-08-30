@@ -51,7 +51,7 @@ postgres:
   db_url: "{{ groups['postgres'][0] }}"
   db_username: analytics
   db_name: analytics
-  db_password: "{{ dp_vault_pgdb_password }}"
+  db_password: "Beehyv123"
   db_table_name: "{{env}}_consumer_channel_mapping"
   db_port: 5432
   db_admin_user: analytics
