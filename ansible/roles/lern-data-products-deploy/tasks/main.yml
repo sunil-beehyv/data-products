@@ -14,7 +14,7 @@
 
 - name: Create AWS S3 bucket
   command: aws s3api create-bucket --bucket {{ bucket }} --create-bucket-configuration LocationConstraint={{ aws_region }}
-  when: dp_object_store_type == "aws" and check_bucket.rc != 0
+  when: dp_object_store_type == "aws"
   tags:
     - always
 
