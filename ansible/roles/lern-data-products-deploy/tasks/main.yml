@@ -11,6 +11,13 @@
   when: dp_object_store_type == "oci"
   tags:
     - always
+    
+- name: Ensure AWS S3 bucket exists
+  command: aws s3api head-bucket --bucket {{ bucket }}
+  register: check_bucket
+  when: dp_object_store_type == "aws"
+  tags:
+    - always
 
 - name: Create oci oss bucket 
   command: "/home/{{analytics_user}}/bin/oci os bucket create -c {{oci_bucket_compartment}} --name {{bucket}}"
@@ -39,6 +46,13 @@
   tags:
     - dataproducts-spark-cluster 
 
+- name: Copy Core Data Products to AWS S3
+  command: aws s3 cp {{ analytics.home }}/models-{{ model_version }}/{{ analytics_batch_module_artifact }} s3://{{ bucket }}/models-{{ model_version }}/{{ analytics_batch_module_artifact }} --recursive --acl bucket-owner-full-control
+  async: 3600
+  poll: 10
+  when: dp_object_store_type == "aws"
+  tags:
+    - dataproducts-spark-cluster
 
 - name: Unarchive Ed Data Products
   become: yes
@@ -62,6 +76,14 @@
   tags:
     - lern-dataproducts-spark-cluster 
 
+- name: Copy Ed Data Products to AWS S3
+  command: aws s3 cp {{ analytics.home }}/models-{{ model_version }}/lern-data-products-1.0/lern-data-products-1.0.jar s3://{{ bucket }}/models-{{ model_version }}/lern-data-products-1.0.jar --acl bucket-owner-full-control
+  async: 3600
+  poll: 10
+  when: dp_object_store_type == "aws"
+  tags:
+    - lern-dataproducts-spark-cluster
+
 - name: Copy Framework Library
   copy: src={{ analytics_core_artifact }} dest={{ analytics.home }}/models-{{ model_version }}
   tags:
@@ -80,6 +102,14 @@
   async: 3600
   poll: 10
   when: dp_object_store_type == "oci"
+  tags:
+    - framework-spark-cluster
+
+- name: Copy Framework Library to AWS S3
+  command: aws s3 cp {{ analytics.home }}/models-{{ model_version }}/{{ analytics_core_artifact }} s3://{{ bucket }}/models-{{ model_version }}/{{ analytics_core_artifact }} --recursive --acl bucket-owner-full-control
+  async: 3600
+  poll: 10
+  when: dp_object_store_type == "aws"
   tags:
     - framework-spark-cluster
 
@@ -103,6 +133,14 @@
   when: dp_object_store_type == "oci"
   tags:
     - framework-spark-cluster 
+
+- name: Copy Scruid Library to AWS S3
+  command: aws s3 cp {{ analytics.home }}/models-{{ model_version }}/{{ scruid_artifact }} s3://{{ bucket }}/models-{{ model_version }}/{{ scruid_artifact }} --recursive --acl bucket-owner-full-control
+  async: 3600
+  poll: 10
+  when: dp_object_store_type == "aws"
+  tags:
+    - framework-spark-cluster
 
 - name: Copy Job Manager
   copy: src={{ analytics_job_manager_artifact }} dest={{ analytics.home }}/models-{{ model_version }}
@@ -153,7 +191,15 @@
   when: dp_object_store_type == "oci"
   tags:
     - framework-spark-cluster  
-    
+
+- name: Copy configuration file to AWS S3
+  command: aws s3 cp {{ analytics.home }}/models-{{ model_version }}/lernapplication.conf s3://{{ bucket }}/models-{{ model_version }}/lernapplication.conf --acl bucket-owner-full-control
+  async: 3600
+  poll: 10
+  when: dp_object_store_type == "aws"
+  tags:
+    - framework-spark-cluster
+
 - name: Copy log4j2 xml file
   template: src=log4j2.xml.j2 dest={{ analytics.home }}/models-{{ model_version }}/log4j2.xml mode=755 owner={{ analytics_user }} group={{ analytics_group }}
   tags: [ dataproducts, framework, lern-dataproducts ]
