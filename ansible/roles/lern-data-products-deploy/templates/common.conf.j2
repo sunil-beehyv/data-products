@@ -72,14 +72,14 @@ default.creation.app.id="no_value"
 
 
 # Media Service Type
-media_service_type = "azure"
+# media_service_type = "aws"
 
-azure_tenant="{{ media_service_azure_tenant }}"
-azure_subscription_id="{{ media_service_azure_subscription_id }}"
-azure_account_name="{{ media_service_azure_account_name }}"
-azure_resource_group_name="{{ media_service_azure_resource_group_name }}"
-azure_token_client_key="{{ media_service_azure_token_client_key }}" 
-azure_token_client_secret="{{ media_service_azure_token_client_secret }}"
+# azure_tenant="{{ media_service_azure_tenant }}"
+# azure_subscription_id="{{ media_service_azure_subscription_id }}"
+# azure_account_name="{{ media_service_azure_account_name }}"
+# azure_resource_group_name="{{ media_service_azure_resource_group_name }}"
+# azure_token_client_key="{{ media_service_azure_token_client_key }}" 
+# azure_token_client_secret="{{ media_service_azure_token_client_secret }}"
 elasticsearch.service.endpoint="http://{{groups['composite-search-cluster'][0]}}:9200"
 elasticsearch.index.compositesearch.name="{{ es_search_index }}"
 
@@ -89,7 +89,7 @@ org.search.api.key="{{ searchServiceAuthorizationToken }}"
 hierarchy.search.api.url="{{ hierarchySearchServiceUrl }}"
 hierarchy.search.api.path="{{ hierarchySearchServicEndpoint }}"
 
-# Azure Media Service Config
+{# # Azure Media Service Config
 azure {
   location = "centralindia"
   tenant = "tenant name"
@@ -119,7 +119,7 @@ azure {
     client_key = "client key"
     client_secret = "client secret"
   }
-}
+} #}
 
 ## Reports - Global config
 cloud.container.reports="{{reports_container}}"
