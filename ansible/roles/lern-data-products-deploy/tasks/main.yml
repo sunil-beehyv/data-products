@@ -1,3 +1,27 @@
+- name: Download the installation file
+  get_url:
+    url: "{{ aws_cli_url }}"
+    dest: /tmp/awscliv2.zip
+
+- name: Installing unzip
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - zip
+    - unzip
+
+- name: Unzip the installer
+  unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp/
+    remote_src: yes    
+
+- name: install aws cli
+  shell: ./aws/install
+  args:
+    chdir: /tmp/
+
 ## Data products deployment ##
 - name: Ensure azure blob storage container exists
   command: az storage container create --name {{ bucket }}
