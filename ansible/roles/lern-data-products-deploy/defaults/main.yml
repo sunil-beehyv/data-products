@@ -4,8 +4,8 @@ spark_output_temp_dir: /mount/data/analytics/tmp/
 
 aws_cli_url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
-bucket: "telemetry-data-store"
-secor_bucket: "telemetry-data-store"
+bucket: "sunbird-beehyv-public"
+secor_bucket: "sunbird-beehyv-public"
 dp_object_store_type: "aws"
 dp_raw_telemetry_backup_location: "unique/raw/"
 dp_storage_key_config: "{{ cloud_public_storage_accountname }}"
