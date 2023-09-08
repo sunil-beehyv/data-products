@@ -1,6 +1,7 @@
 analytics_user: analytics
 analytics_group: analytics
 spark_output_temp_dir: /mount/data/analytics/tmp/
+
 aws_cli_url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
 bucket: "telemetry-data-store"
