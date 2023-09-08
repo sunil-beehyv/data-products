@@ -9,5 +9,4 @@
     AWS_SECRET_ACCESS_KEY: "{{sunbird_private_storage_account_key}}"
     OCI_CLI_AUTH: "instance_principal"
   roles:
-   - aws-cli
-   # - lern-data-products-deploy
+   - lern-data-products-deploy
