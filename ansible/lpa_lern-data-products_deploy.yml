@@ -5,8 +5,8 @@
   become: yes
   become_user: "{{ analytics_user }}"
   environment:
-    AZURE_STORAGE_ACCOUNT: "{{sunbird_private_storage_account_name}}"
-    AZURE_STORAGE_KEY: "{{sunbird_private_storage_account_key}}"
+    AWS_ACCESS_KEY_ID: "{{sunbird_private_storage_account_name}}"
+    AWS_SECRET_ACCESS_KEY: "{{sunbird_private_storage_account_key}}"
     OCI_CLI_AUTH: "instance_principal"
   roles:
    - lern-data-products-deploy
